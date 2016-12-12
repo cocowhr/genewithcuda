@@ -17,7 +17,7 @@ e:\cudadep\include\device_functions.h(1618): warning C4819: 该文件包含不�
 e:\cudadep\include\device_double_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h(943): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-e:/User/documents/visual studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(141): warning : missing return statement at end of non-void function "crossoverWithCuda"
+e:/User/documents/visual studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(245): warning : missing return statement at end of non-void function "crossoverWithCuda"
 e:\cudadep\include\math_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(849): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(1787): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -34,7 +34,7 @@ e:\cudadep\include\device_functions.h(1618): warning C4819: 该文件包含不�
 e:\cudadep\include\device_double_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h(943): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-e:/User/documents/visual studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(141): warning : missing return statement at end of non-void function "crossoverWithCuda"
+e:/User/documents/visual studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(245): warning : missing return statement at end of non-void function "crossoverWithCuda"
 e:\cudadep\include\math_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(849): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(1787): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -86,8 +86,7 @@ e:\cudadep\include\math_functions.h(7142): warning C4819: 该文件包含不能�
 e:\cudadep\include\math_functions.h(7956): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 CUDACOMPILE : nvcc warning : The 'compute_20', 'sm_20', and 'sm_21' architectures are deprecated, and may be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
   kernel.cu
-e:/User/documents/visual studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(103): warning C4018: “<”: 有符号/无符号不匹配
-e:\user\documents\visual studio 2012\projects\gene_cuda\gene_cuda\kernel.cu(141): warning C4715: “crossoverWithCuda”: 不是所有的控件路径都返回值
+e:\user\documents\visual studio 2012\projects\gene_cuda\gene_cuda\kernel.cu(245): warning C4715: “crossoverWithCuda”: 不是所有的控件路径都返回值
   GENE_CUDA.vcxproj -> e:\user\documents\visual studio 2012\Projects\GENE_CUDA\Debug\GENE_CUDA.exe
   copy "E:\CUDAdep\bin\cudart*.dll" "e:\user\documents\visual studio 2012\Projects\GENE_CUDA\Debug\"
   E:\CUDAdep\bin\cudart32_80.dll
