@@ -16,6 +16,7 @@ using namespace std;
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}  
 cudaError_t crossoverWithCuda(int *crossseq[], int *seq[],int *ref[],double *fit);
 /*不用结构体 直接拆开用*/
+__device__ int randomnum;
 __device__  void cross_calculate_fit(double ci1,double ci2,int *seq1,int *seq2,int **ref,double &fit1,double&fit2)
 {
 	int M1=0;
@@ -70,20 +71,26 @@ __global__ void crossover(int **crossseq,int **seq,int **ref,double*fit,int* cou
 		//printf("(%d,%d)\n",y,x); 
 		//printf("(%d,%d)\n(%d)\n(%d)\n",y,x,a[y][0],a[x][0]); 
 		int insert_pt=atomicAdd(count, 1);	
+		int iscross=atomicAdd(&randomnum, 1);
 		// printf("%d\n",random[insert_pt]);
-		 for(int i=0;i<random[insert_pt];i++)
+		if(random[iscross]<80)
 		{
-			// printf("%d\n",2*insert_pt);
-			crossseq[2*insert_pt][i]=seq[y][i];
-			crossseq[2*insert_pt+1][i]=seq[x][i];
+			int crossloc=atomicAdd(&randomnum, 1);
+			for(int i=0;i<random[crossloc]%LEN;i++)
+			{
+				// printf("%d\n",2*insert_pt);
+				crossseq[2*insert_pt][i]=seq[y][i];
+				crossseq[2*insert_pt+1][i]=seq[x][i];
+			}
+			for(int i=random[crossloc]%LEN;i<LEN;i++)
+			{
+				crossseq[2*insert_pt][i]=seq[x][i];
+				crossseq[2*insert_pt+1][i]=seq[y][i];
+			}
+			cross_calculate_fit(ci1,ci2,crossseq[2*insert_pt],crossseq[2*insert_pt+1],ref,fit[2*insert_pt],fit[2*insert_pt+1]);
 		}
-		for(int i=random[insert_pt];i<LEN;i++)
-		{
-			crossseq[2*insert_pt][i]=seq[x][i];
-			crossseq[2*insert_pt+1][i]=seq[y][i];
-		}
-		cross_calculate_fit(ci1,ci2,crossseq[2*insert_pt],crossseq[2*insert_pt+1],ref,fit[2*insert_pt],fit[2*insert_pt+1]);
 	}
+
 }
 int main()
 {
@@ -192,7 +199,7 @@ cudaError_t crossoverWithCuda(int *crossseq[], int *seq[],int *ref[],double *fit
 	int *random=new int[randomSize];
 	for(int i=0;i<randomSize;i++)
 	{
-		random[i]=rand()%LEN;    
+		random[i]=rand()%100;    
 	}
 	int count=0;
 	int *array_dev_input[CNUM] = {};
