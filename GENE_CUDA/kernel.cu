@@ -13,21 +13,20 @@
 #include <vector>
 using namespace std;
 #define NS 10
-#define ST 10//TÖĞµÄĞòÁĞ¸öÊı TÎª²Î¿¼Ä£Ê½¿â
+#define ST 100000//TÖĞµÄĞòÁĞ¸öÊı TÎª²Î¿¼Ä£Ê½¿â 
 #define CNUM 4//ÈºÌå¹æÄ£ ĞèÒªÎª2µÄ±¶Êı ÏÖÔÚ·Ö³É4¿é ×î¶à¿ÉÒÔ64
 #define NUM 5//µü´ú´ÎÊı
-#define LEN 5
+#define LEN 7
 #define crossCNUM CNUM*(CNUM-1)
 #define randomSize 500
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}  
-cudaError_t geneWithCuda(int *crossseq[], int *seq[],int *ref[],double *inputfit,double *outputfit,int& count);
+cudaError_t geneWithCuda(int *seq[],int *outputseq[], double *inputfit,double *outputfit,int& count);
 class Chrom
 {
 public:
 	Chrom() 
 	{
 		seq=new int[LEN];
-		M=0;//¼ÇµÃÒªÇå0
 		fit=0;
 	}
 	Chrom(const Chrom& a)
@@ -37,14 +36,11 @@ public:
 		{
 			seq[i]=a.seq[i];
 		}
-		M=a.M;
 		fit=a.fit;
 		//MM.assign(a.MM.begin(),a.MM.end());
 	}
 	~Chrom() {}
 	int* seq ;
-	//vector<int>MM;
-	double M;
 	double fit;//ÊÊÓ¦Öµ
 };
 bool Comp(Chrom& first,Chrom& second)
@@ -55,7 +51,8 @@ typedef struct Code                           // ½á¹¹ÌåÀàĞÍ£¬Îªµ¥¸öÈ¾É«ÌåµÄ½á¹¹£
 {
 	int id;//0ºÅÔ¤Áô¸ø*
 	double count;
-}code;     
+}code;    
+int *refer[ST]={};//ÒòÎªÊı×éÌ«´ó ĞèÒª·ÅÔÚÍâÃæ
 __host__ void evpop (int **seq,int **ref)   // º¯Êı£ºËæ»úÉú³É³õÊ¼ÖÖÈº£»//todo:ĞèÒªGPU¼ÆËãfit
 {
 	int random ;
@@ -77,32 +74,8 @@ __host__ void evpop (int **seq,int **ref)   // º¯Êı£ºËæ»úÉú³É³õÊ¼ÖÖÈº£»//todo:Ğè
 		}
 	}       
 }       
-__host__ void pickchroms (vector<Chrom>& popcurrent,vector<Chrom>& popnext)          // º¯Êı£ºÑ¡Ôñ¸öÌå£»
-{
-	sort(popcurrent.begin(),popcurrent.end(),Comp);
-	sort(popnext.begin(),popnext.end(),Comp);
-	vector<Chrom> temp;
-	int i=0,j=0;
-	int nextlen=popnext.size();
-	for(int k=0;k<CNUM;k++)
-	{
-		if(j>=nextlen||popcurrent[i].fit>popnext[j].fit)
-		{
-			Chrom ctemp(popcurrent[i]);
-			temp.push_back(ctemp);
-			i++;
-		}
-		else
-		{
-			Chrom ctemp(popnext[j]);
-			temp.push_back(ctemp);
-			j++;
-		}
-	}
-	popnext.assign(temp.begin(),temp.end()); 
-}   
 __device__ int randomnum;
-__device__  void calculate_fit(double ci,int E,int *seq,int **ref,double &fit)//¼ÆËãfitÖµ
+__device__  void calculate_fit(double ci,int E,int *seq,int **devref,double &fit)//¼ÆËãfitÖµ
 {
 	int M=0;
 	for(int k=0;k<ST;k++)
@@ -110,7 +83,7 @@ __device__  void calculate_fit(double ci,int E,int *seq,int **ref,double &fit)//
 		bool eq=true;
 		for(int m=0;m<LEN;m++)
 		{
-			int refkm=ref[k][m];
+			int refkm=devref[k][m];
 			if(eq)
 			{
 				if(0!=seq[m]&&refkm!=seq[m])
@@ -127,7 +100,7 @@ __device__  void calculate_fit(double ci,int E,int *seq,int **ref,double &fit)//
 	}	
 	fit=ci*M*_Pow_int(NS,E)/ST;
 }
-__global__ void calculate_fit_input(int **seq,int ** ref,double *fit)
+__global__ void calculate_fit_input(int **seq,int ** devref,double *fit)
 {
 	int x=threadIdx.x;
 	double ci=0;
@@ -143,9 +116,9 @@ __global__ void calculate_fit_input(int **seq,int ** ref,double *fit)
 			E--;
 		}
 	}	
-	calculate_fit(ci,E,seq[x],ref,fit[x]);
+	calculate_fit(ci,E,seq[x],devref,fit[x]);
 }
-__global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int *random)//½»²æ²Ù×÷
+__global__ void crossover(int **crossseq,int **seq,int **devref,int* crosscount,int *random)//½»²æ²Ù×÷
 {
 
 	int x=CNUM/2*blockIdx.x+threadIdx.x;
@@ -175,7 +148,7 @@ __global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int
 	}
 
 }
-__global__ void mutation(int **mutationseq,int **crossseq,int **ref,double*fit,int *random) // ±äÒì²Ù×÷£»
+__global__ void mutation(int **mutationseq,int **crossseq,int **devref,double*fit,int *random) // ±äÒì²Ù×÷£»
 {
 	int x=threadIdx.x;
 	double ci=0;
@@ -204,27 +177,11 @@ __global__ void mutation(int **mutationseq,int **crossseq,int **ref,double*fit,i
 			E--;
 		}
 	}	
-	calculate_fit(ci,E,mutationseq[x],ref,fit[x]);
+	calculate_fit(ci,E,mutationseq[x],devref,fit[x]);
 }
 int main()
 {
 	int* seq[CNUM] = {};
-	int* crossseq[crossCNUM] = {};
-	int *ref[ST]={};
-	double *inputfit=new double[CNUM];
-	double *outputfit=new double[crossCNUM];
-	for (int i = 0; i < CNUM; i++)
-	{
-		seq[i] =new int[LEN];
-	}
-	for (int i = 0; i < crossCNUM; i++)
-	{
-		crossseq[i]=new int[LEN];
-	}
-	for(int i=0;i<ST;i++)
-	{
-		ref[i]=new int [LEN];
-	}
 	MYSQL mysql;  
 	MYSQL_RES *result;  
 	MYSQL_ROW row;  
@@ -234,56 +191,127 @@ int main()
 	strSQL.Format("SELECT * FROM seq");
 	mysql_query(&mysql, strSQL);
 	result = mysql_store_result(&mysql);  
+	for (int i = 0; i < CNUM; i++)
+	{
+		seq[i] =new int[LEN];
+	}
+	for(int i=0;i<ST;i++)
+	{
+		refer[i]=new int [LEN];
+	}
 	for(int i=0;i<ST;i++)
 	{  
 		row = mysql_fetch_row(result);
 		for(int j=0;j<LEN;j++)
 		{
-			ref[i][j]=atoi(row[j+1]);
+			refer[i][j]=atoi(row[j+1]);
 		}
 	}  
-	evpop(seq,ref);
-	//seq[0][0]=9;
-	//seq[0][1]=6;
-	//seq[0][2]=9;
-	//seq[0][3]=4;
-	//seq[0][4]=10;
-	for(int i=0;i<CNUM;i++)
-	{
-		for(int j=0;j<LEN;j++)
-		{
-			cout<<seq[i][j]<<" ";
-		}
-		cout<<endl;
-	}
-	cout<<"********************************"<<endl;
+	evpop(seq,refer);
+	//for(int i=0;i<CNUM;i++)
+	//{
+	//	for(int j=0;j<LEN;j++)
+	//	{
+	//		cout<<seq[i][j]<<" ";
+	//	}
+	//	cout<<endl;
+	//}
+	//cout<<"********************************"<<endl;
 	// Add vectors in parallel.
-	int count=0;
-	cudaError_t cudaStatus = geneWithCuda(crossseq, seq,ref,inputfit,outputfit,count);
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "addWithCuda failed!");
-		return 1;
-	}
-	for (int i=0;i<count;i++)
+	vector<Chrom>chroms;
+	for(int t =0;t< NUM;t ++)                          // ¿ªÊ¼µü´ú£»
 	{
-		for(int j=0;j<LEN;j++)
+		int* outputseq[crossCNUM] = {};
+		double *inputfit=new double[CNUM];
+		double *outputfit=new double[crossCNUM];
+		for (int i = 0; i < crossCNUM; i++)
 		{
-			cout<<crossseq[i][j]<<" ";
+			outputseq[i]=new int[LEN];
 		}
-		cout<<endl;
+		printf("\ni = %d\n" ,t);                 // Êä³öµ±Ç°µü´ú´ÎÊı£»
+		int count=0;
+		cudaError_t cudaStatus = geneWithCuda( seq,outputseq,inputfit,outputfit,count);
+		if (cudaStatus != cudaSuccess) {
+			fprintf(stderr, "addWithCuda failed!");
+			return 1;
+		}
+		cudaStatus = cudaThreadExit();
+		if (cudaStatus != cudaSuccess) {
+			fprintf(stderr, "cudaThreadExit failed!");
+			return 1;
+		}
+		chroms.clear();
+		for(int i=0;i<CNUM;i++)
+		{
+			Chrom temp;
+			for(int j=0;j<LEN;j++)
+			{
+				temp.seq[j]=seq[i][j];
+			}
+			temp.fit=inputfit[i];
+			chroms.push_back(temp);
+		}
+		for(int i=0;i<count;i++)
+		{
+			Chrom temp;
+			for(int j=0;j<LEN;j++)
+			{
+				temp.seq[j]=outputseq[i][j];
+			}
+			temp.fit=outputfit[i];
+			chroms.push_back(temp);
+		}
+		sort(chroms.begin(),chroms.end(),Comp);
+		//for(int i=0;i<chroms.size();i++)
+		//{
+		//	for(int j=0;j<LEN;j++)
+		//	{
+		//		cout<<chroms[i].seq[j]<<" ";
+		//	}
+		//	cout<<endl;
+		//	cout<<chroms[i].fit<<endl;
+		//}
+		for(int i=0;i<CNUM;i++)
+		{
+			for(int j=0;j<LEN;j++)
+			{
+				seq[i][j]=chroms[i].seq[j];
+			}
+		}
+		delete[] outputfit;
+		delete[] inputfit;
+		for(int i=0;i<crossCNUM;i++)
+		{
+			delete  outputseq[i];
+		}	
+		// cudaThreadExit must be called before exiting in order for profiling and
+		// tracing tools such as Nsight and Visual Profiler to show complete traces.
+		
 	}
-	// cudaThreadExit must be called before exiting in order for profiling and
-	// tracing tools such as Nsight and Visual Profiler to show complete traces.
-	cudaStatus = cudaThreadExit();
-	if (cudaStatus != cudaSuccess) {
-		fprintf(stderr, "cudaThreadExit failed!");
-		return 1;
-	}
-
+		for(int i=0;i<CNUM;i++)
+		{
+			for(int j=0;j<LEN;j++)
+			{
+				cout<<chroms[i].seq[j]<<" ";
+			}
+			cout<<endl;
+			cout<<chroms[i].fit<<endl;
+		}
 	return 0;
 }
 // Helper function for using CUDA to add vectors in parallel.
-cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double*inputfit,double *outputfit,int &count)//½»²æ±äÒì²Ù×÷½»¸øGPU
+/*
+½»²æ±äÒì²Ù×÷½»¸øGPU 
+ÊäÈë²ÎÊıÎª£º
+seq ¸¸ÖÖÈº
+ref ²Î¿¼Ä£Ê½¿â
+Êä³ö²ÎÊıÎª:
+outputseq ×ÓÖÖÈº
+inputfit:¸¸ÖÖÈºµÄÊÊÓ¦Öµ
+outputfit:×ÓÖÖÈºµÄÊÊÓ¦Öµ
+count:×ÓÖÖÈºÊıÁ¿
+*/
+cudaError_t geneWithCuda(int *seq[],int *outputseq[], double*inputfit,double *outputfit,int &count)
 {
 	//srand(time(0));
 	int *random=new int[randomSize];
@@ -320,7 +348,7 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double*inputfit
 	for (int i = 0; i < ST; i++)
 	{
 		CHECK(cudaMalloc((void**)&(array_dev_ref[i]), LEN * sizeof(int)));
-		CHECK(cudaMemcpy(array_dev_ref[i], ref[i], LEN * sizeof(int), cudaMemcpyHostToDevice));
+		CHECK(cudaMemcpy(array_dev_ref[i], refer[i], LEN * sizeof(int), cudaMemcpyHostToDevice));
 	}
 	CHECK(cudaMalloc((void**)&(dev_input), CNUM * sizeof(int*)));
 	CHECK(cudaMalloc((void**)&(dev_crossoutput), crossCNUM * sizeof(int*)));
@@ -363,7 +391,7 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double*inputfit
 	CHECK(cudaMemcpy(outputfit, dev_outputfit, crossCNUM*sizeof(double), cudaMemcpyDeviceToHost));
 	CHECK(cudaMemcpy(&crosscount, dev_crosscount, sizeof(int), cudaMemcpyDeviceToHost));
 	count=crosscount; 
-	
+
 
 	for (int i = 0; i < CNUM; i++)
 	{
