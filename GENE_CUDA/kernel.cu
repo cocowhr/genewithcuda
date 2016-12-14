@@ -6,60 +6,146 @@
 #include <stdlib.h>
 #include <iostream>
 #include <time.h>
+#include <algorithm>
+#include <vector>
 using namespace std;
 #define NS 10
 #define ST 5//T中的序列个数 T为参考模式库
-#define CNUM 4//需要为2的倍数 现在分成4块 最多可以64
+#define CNUM 4//群体规模 需要为2的倍数 现在分成4块 最多可以64
+#define NUM 5//迭代次数
 #define LEN 5
 #define crossCNUM CNUM*(CNUM-1)
 #define randomSize 500
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}  
 cudaError_t geneWithCuda(int *crossseq[], int *seq[],int *ref[],double *fit);
-/*不用结构体 直接拆开用*/
+class Chrom
+{
+public:
+	Chrom() 
+	{
+		seq=new int[LEN];
+		M=0;//记得要清0
+		fit=0;
+	}
+	Chrom(const Chrom& a)
+	{
+		seq=new int[LEN];
+		for(int i=0;i<LEN;i++)
+		{
+			seq[i]=a.seq[i];
+		}
+		M=a.M;
+		fit=a.fit;
+		//MM.assign(a.MM.begin(),a.MM.end());
+	}
+	~Chrom() {}
+	int* seq ;
+	//vector<int>MM;
+	double M;
+	double fit;//适应值
+};
+bool Comp(Chrom& first,Chrom& second)
+{
+	return first.fit > second.fit;
+}
+typedef struct Code                           // 结构体类型，为单个染色体的结构；
+{
+	int id;//0号预留给*
+	double count;
+}code;     
+__host__ void evpop (vector<Chrom>&popcurrent,vector<code>&codes,vector<int *>ref)   // 函数：随机生成初始种群；
+{
+	int random ;
+	for(int i=0;i<CNUM;i++)
+	{
+		Chrom chrom;
+		for(int j=0;j<LEN;j++)
+		{
+			random=rand ()%NS;                     // 产生一个随机值
+			chrom.seq[j]=codes[random].id;
+		}
+		popcurrent.push_back(chrom);
+	}
+	for(int i=0;i<CNUM;i++)
+	{
+		int random1=rand ()%3;
+		for(int j=0;j<random1;j++)
+		{
+			random=rand ()%LEN; 
+			popcurrent[i].seq[random]=0;
+		}
+	}
+	for(int i=0;i<CNUM;i++)
+	{
+		for(int j=0;j<ST;j++)
+		{
+			bool eq=true;
+			for(int k=0;k<LEN;k++)
+			{
+				int pop=popcurrent[i].seq[k];
+				if(0!=pop&&ref[j][k]!=pop)
+				{
+					eq=false;
+					break;
+				}
+			}
+			if(eq)
+			{
+//				popcurrent[i].MM.push_back(j);
+				popcurrent[i].M++;
+			}
+		}
+	}
+	for(int i=0;i<CNUM;i++)
+	{
+		int E=LEN;
+		double ci=0;
+		for(int j=0;j<LEN;j++)
+		{
+			if(popcurrent[i].seq[j]!=0)
+			{
+				ci+=codes[popcurrent[i].seq[j]-1].count;
+			}
+			else
+			{
+				E--;
+			}
+		}
+		popcurrent[i].fit=ci*popcurrent[i].M*pow(NS,E)/ST;
+		//cout<<"E: "<<E<<endl;
+		//cout<<"Ns^E(Patterni)/S(T): "<<pow(NS,E)/ST<<endl;
+		//cout<<"ci: "<<ci<<endl;
+		//cout<<"M:"<<popcurrent[i].M<<endl;
+		//cout<<"fit:    "<<popcurrent[i].fit<<endl;
+	}             
+}       
+__host__ void pickchroms (vector<Chrom>& popcurrent,vector<Chrom>& popnext)          // 函数：选择个体；
+{
+	sort(popcurrent.begin(),popcurrent.end(),Comp);
+	sort(popnext.begin(),popnext.end(),Comp);
+	vector<Chrom> temp;
+	int i=0,j=0;
+	int nextlen=popnext.size();
+	for(int k=0;k<CNUM;k++)
+	{
+		if(j>=nextlen||popcurrent[i].fit>popnext[j].fit)
+		{
+			Chrom ctemp(popcurrent[i]);
+			temp.push_back(ctemp);
+			i++;
+		}
+		else
+		{
+			Chrom ctemp(popnext[j]);
+			temp.push_back(ctemp);
+			j++;
+		}
+	}
+	popnext.assign(temp.begin(),temp.end()); 
+}   
+
 __device__ int randomnum;
-//__device__  void cross_calculate_fit(double ci1,double ci2,int *seq1,int *seq2,int **ref,double &fit1,double&fit2)
-//{
-//	int M1=0;
-//	int M2=0;
-//	for(int k=0;k<ST;k++)
-//	{
-//		bool eq1=true;
-//		bool eq2=true;
-//		for(int m=0;m<LEN;m++)
-//		{
-//			int refkm=ref[k][m];
-//			if(eq1)
-//			{
-//				if(0!=seq1[m]&&refkm!=seq1[m])
-//				{
-//					eq1=false;
-//				}
-//			}
-//			if(eq2)
-//			{
-//				if(0!=seq2[m]&&refkm!=seq2[m])
-//				{
-//					eq2=false;
-//				}
-//			}
-//			if(!eq1&&!eq2)
-//			{
-//				break;
-//			}
-//		}
-//		if(eq1)
-//		{
-//			M1++;
-//		}
-//		if(eq2)
-//		{
-//			M2++;
-//		}
-//	}	
-//	fit1=ci1*M1*_Pow_int(NS,LEN)/ST;
-//	fit2=ci2*M2*_Pow_int(NS,LEN)/ST;
-//}
-__device__  void calculate_fit(double ci,int *seq,int **ref,double &fit)
+__device__  void calculate_fit(double ci,int E,int *seq,int **ref,double &fit)//计算fit值
 {
 	int M=0;
 	for(int k=0;k<ST;k++)
@@ -82,9 +168,9 @@ __device__  void calculate_fit(double ci,int *seq,int **ref,double &fit)
 			M++;
 		}
 	}	
-	fit=ci*M*_Pow_int(NS,LEN)/ST;
+	fit=ci*M*_Pow_int(NS,E)/ST;
 }
-__global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int *random)
+__global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int *random)//交叉操作
 {
 
 	int x=CNUM/2*blockIdx.x+threadIdx.x;
@@ -115,10 +201,11 @@ __global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int
 	}
 
 }
-__global__ void mutation(int **mutationseq,int **crossseq,int **ref,double*fit,int *random)
+__global__ void mutation(int **mutationseq,int **crossseq,int **ref,double*fit,int *random) // 变异操作；
 {
 	int x=CNUM/2*blockIdx.x+threadIdx.x;
-	double ci=0.5;
+	double ci=0;
+	int E=LEN;
 	//printf("(%d)\n",x); 
 	//printf("(%d,%d)\n(%d)\n(%d)\n",y,x,a[y][0],a[x][0]); 
 	// printf("%d\n",random[insert_pt]);
@@ -134,8 +221,16 @@ __global__ void mutation(int **mutationseq,int **crossseq,int **ref,double*fit,i
 		{
 			mutationseq[x][i]=crossseq[x][i];
 		}
+		if(mutationseq[x][i]!=0)
+		{
+			ci+=0.1;
+		}
+		else
+		{
+			E--;
+		}
 	}	
-	calculate_fit(ci,mutationseq[x],ref,fit[x]);
+	calculate_fit(ci,E,mutationseq[x],ref,fit[x]);
 }
 int main()
 {
@@ -157,16 +252,16 @@ int main()
 	}
 	seq[0][0]=1;
 	seq[0][1]=2;
-	seq[0][2]=3;
+	seq[0][2]=0;
 	seq[0][3]=4;
 	seq[0][4]=5;
-	//12345
+	//12045
 	seq[1][0]=4;
 	seq[1][1]=2;
 	seq[1][2]=8;
-	seq[1][3]=6;
+	seq[1][3]=0;
 	seq[1][4]=3;
-	//42863
+	//42803
 	seq[2][0]=5;
 	seq[2][1]=2;
 	seq[2][2]=1;
