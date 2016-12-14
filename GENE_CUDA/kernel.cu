@@ -13,14 +13,14 @@
 #include <vector>
 using namespace std;
 #define NS 10
-#define ST 7//T中的序列个数 T为参考模式库
+#define ST 10//T中的序列个数 T为参考模式库
 #define CNUM 4//群体规模 需要为2的倍数 现在分成4块 最多可以64
 #define NUM 5//迭代次数
 #define LEN 5
 #define crossCNUM CNUM*(CNUM-1)
 #define randomSize 500
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}  
-cudaError_t geneWithCuda(int *crossseq[], int *seq[],int *ref[],double *fit,int& count);
+cudaError_t geneWithCuda(int *crossseq[], int *seq[],int *ref[],double *inputfit,double *outputfit,int& count);
 class Chrom
 {
 public:
@@ -127,6 +127,24 @@ __device__  void calculate_fit(double ci,int E,int *seq,int **ref,double &fit)//
 	}	
 	fit=ci*M*_Pow_int(NS,E)/ST;
 }
+__global__ void calculate_fit_input(int **seq,int ** ref,double *fit)
+{
+	int x=threadIdx.x;
+	double ci=0;
+	int E=LEN;
+	for(int i=0;i<LEN;i++)
+	{
+		if(seq[x][i]!=0)
+		{
+			ci+=0.1;
+		}
+		else
+		{
+			E--;
+		}
+	}	
+	calculate_fit(ci,E,seq[x],ref,fit[x]);
+}
 __global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int *random)//交叉操作
 {
 
@@ -159,7 +177,7 @@ __global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int
 }
 __global__ void mutation(int **mutationseq,int **crossseq,int **ref,double*fit,int *random) // 变异操作；
 {
-	int x=CNUM/2*blockIdx.x+threadIdx.x;
+	int x=threadIdx.x;
 	double ci=0;
 	int E=LEN;
 	//printf("(%d)\n",x); 
@@ -193,7 +211,8 @@ int main()
 	int* seq[CNUM] = {};
 	int* crossseq[crossCNUM] = {};
 	int *ref[ST]={};
-	double *fit=new double[crossCNUM];
+	double *inputfit=new double[CNUM];
+	double *outputfit=new double[crossCNUM];
 	for (int i = 0; i < CNUM; i++)
 	{
 		seq[i] =new int[LEN];
@@ -224,6 +243,11 @@ int main()
 		}
 	}  
 	evpop(seq,ref);
+	//seq[0][0]=9;
+	//seq[0][1]=6;
+	//seq[0][2]=9;
+	//seq[0][3]=4;
+	//seq[0][4]=10;
 	for(int i=0;i<CNUM;i++)
 	{
 		for(int j=0;j<LEN;j++)
@@ -235,7 +259,7 @@ int main()
 	cout<<"********************************"<<endl;
 	// Add vectors in parallel.
 	int count=0;
-	cudaError_t cudaStatus = geneWithCuda(crossseq, seq,ref,fit,count);
+	cudaError_t cudaStatus = geneWithCuda(crossseq, seq,ref,inputfit,outputfit,count);
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "addWithCuda failed!");
 		return 1;
@@ -259,7 +283,7 @@ int main()
 	return 0;
 }
 // Helper function for using CUDA to add vectors in parallel.
-cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit,int &count)
+cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double*inputfit,double *outputfit,int &count)//交叉变异操作交给GPU
 {
 	//srand(time(0));
 	int *random=new int[randomSize];
@@ -273,7 +297,8 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit,int
 	int *array_dev_crossoutput[crossCNUM] = {};
 	int *array_dev_mutaoutput[crossCNUM] = {};
 	int *dev_rand=0;
-	double *dev_fit=0;
+	double *dev_inputfit=0;
+	double *dev_outputfit=0;
 	int **dev_input = 0;
 	int **dev_ref=0;
 	int **dev_crossoutput = 0;
@@ -302,7 +327,8 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit,int
 	CHECK(cudaMalloc((void**)&(dev_mutaoutput), crossCNUM * sizeof(int*)));
 	CHECK(cudaMalloc((void**)&(dev_ref), ST * sizeof(int*)));
 	CHECK(cudaMalloc((void**)&(dev_rand), randomSize * sizeof(int)));
-	CHECK(cudaMalloc((void**)&(dev_fit), crossCNUM * sizeof(double)));
+	CHECK(cudaMalloc((void**)&(dev_inputfit), CNUM * sizeof(double)));
+	CHECK(cudaMalloc((void**)&(dev_outputfit), crossCNUM * sizeof(double)));
 	CHECK(cudaMalloc((void**)&(dev_crosscount), sizeof(int)));
 
 	CHECK(cudaMemcpy(dev_input, array_dev_input, CNUM * sizeof(int*), cudaMemcpyHostToDevice));
@@ -311,15 +337,19 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit,int
 	CHECK(cudaMemcpy(dev_ref, array_dev_ref, ST * sizeof(int*), cudaMemcpyHostToDevice));
 	CHECK(cudaMemcpy(dev_crosscount, &crosscount, sizeof(int), cudaMemcpyHostToDevice));
 	CHECK(cudaMemcpy(dev_rand, random, randomSize * sizeof(int), cudaMemcpyHostToDevice));
-	CHECK(cudaMemcpy(dev_fit, fit, crossCNUM * sizeof(double), cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(dev_inputfit, inputfit, CNUM * sizeof(double), cudaMemcpyHostToDevice));
+	CHECK(cudaMemcpy(dev_outputfit, outputfit, crossCNUM * sizeof(double), cudaMemcpyHostToDevice));
 
 
+	calculate_fit_input<<<1,CNUM>>>(dev_input,dev_ref,dev_inputfit);
+	CHECK(cudaThreadSynchronize());
+	CHECK(cudaMemcpy(inputfit, dev_inputfit, CNUM*sizeof(double), cudaMemcpyDeviceToHost));
 	dim3 threads(CNUM/2,CNUM/2);
 	dim3 blocks(2,2);
 	crossover<<<blocks, threads>>>(dev_crossoutput,dev_input,dev_ref,dev_crosscount,dev_rand);
 	CHECK(cudaThreadSynchronize());
 	CHECK(cudaMemcpy(&crosscount, dev_crosscount, sizeof(int), cudaMemcpyDeviceToHost));
-	mutation<<<1,crosscount>>>(dev_mutaoutput,dev_crossoutput,dev_ref,dev_fit,dev_rand);
+	mutation<<<1,crosscount>>>(dev_mutaoutput,dev_crossoutput,dev_ref,dev_outputfit,dev_rand);
 	CHECK(cudaThreadSynchronize());
 	//for (int i = 0; i < crossCNUM; i++)
 	//{
@@ -330,7 +360,32 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit,int
 	{
 		CHECK( cudaMemcpy(outputseq[i], array_dev_mutaoutput[i], LEN * sizeof(int), cudaMemcpyDeviceToHost));
 	}
-	CHECK(cudaMemcpy(fit, dev_fit, crossCNUM*sizeof(double), cudaMemcpyDeviceToHost));
+	CHECK(cudaMemcpy(outputfit, dev_outputfit, crossCNUM*sizeof(double), cudaMemcpyDeviceToHost));
 	CHECK(cudaMemcpy(&crosscount, dev_crosscount, sizeof(int), cudaMemcpyDeviceToHost));
-	count=crosscount;
+	count=crosscount; 
+	
+
+	for (int i = 0; i < CNUM; i++)
+	{
+		if (array_dev_input[i])	cudaFree(array_dev_input[i]);
+	}
+	for (int i = 0; i < crossCNUM; i++)
+	{
+		if (array_dev_crossoutput[i])	cudaFree(array_dev_crossoutput[i]);
+		if (array_dev_mutaoutput[i])	cudaFree(array_dev_mutaoutput[i]);
+	}
+	for (int i = 0; i < ST; i++)
+	{
+		if (array_dev_ref[i])	cudaFree(array_dev_ref[i]);
+	}
+	if (dev_input)	cudaFree(dev_input);
+	if (dev_rand)	cudaFree(dev_rand);
+	if (dev_inputfit)	cudaFree(dev_inputfit);
+	if (dev_outputfit)	cudaFree(dev_outputfit);
+	if (dev_ref)	cudaFree(dev_ref);
+	if (dev_crossoutput)	cudaFree(dev_crossoutput);
+	if (dev_mutaoutput)	cudaFree(dev_mutaoutput);
+	if (dev_crosscount)	cudaFree(dev_crosscount);
+
+	return cudaSuccess;
 }

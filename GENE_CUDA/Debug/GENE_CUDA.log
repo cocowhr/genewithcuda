@@ -1,6 +1,6 @@
 ﻿  Compiling CUDA source file kernel.cu...
   
-  e:\User\Documents\Visual Studio 2012\Projects\GENE_CUDA\GENE_CUDA>"E:\CUDAdep\bin\nvcc.exe" -gencode=arch=compute_20,code=\"sm_20,compute_20\" --use-local-env --cl-version 2012 -ccbin "E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin"  -IE:\CUDAdep\include -IE:\CUDAdep\include  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static  -g   -DWIN32 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od  /Zi /RTC1 /MDd " -o Debug\kernel.cu.obj "e:\User\Documents\Visual Studio 2012\Projects\GENE_CUDA\GENE_CUDA\kernel.cu" 
+  e:\User\documents\visual studio 2012\Projects\GENE_CUDA\GENE_CUDA>"E:\CUDAdep\bin\nvcc.exe" -gencode=arch=compute_20,code=\"sm_20,compute_20\" --use-local-env --cl-version 2012 -ccbin "E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin"  -IE:\CUDAdep\include -IE:\CUDAdep\include  -G   --keep-dir Debug -maxrregcount=0  --machine 32 --compile -cudart static  -g   -DWIN32 -D_DEBUG -D_CONSOLE -D_MBCS -Xcompiler "/EHsc /W3 /nologo /Od  /Zi /RTC1 /MDd " -o Debug\kernel.cu.obj "e:\User\documents\visual studio 2012\Projects\GENE_CUDA\GENE_CUDA\kernel.cu" 
 e:\cudadep\include\math_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(849): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(1787): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -17,7 +17,6 @@ e:\cudadep\include\device_functions.h(1618): warning C4819: 该文件包含不�
 e:\cudadep\include\device_double_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h(943): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-e:/User/Documents/Visual Studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(336): warning : missing return statement at end of non-void function "geneWithCuda"
 e:\cudadep\include\math_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(849): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(1787): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -34,7 +33,6 @@ e:\cudadep\include\device_functions.h(1618): warning C4819: 该文件包含不�
 e:\cudadep\include\device_double_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\sm_20_intrinsics.h(943): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
-e:/User/Documents/Visual Studio 2012/Projects/GENE_CUDA/GENE_CUDA/kernel.cu(336): warning : missing return statement at end of non-void function "geneWithCuda"
 e:\cudadep\include\math_functions.h : warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(849): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 e:\cudadep\include\math_functions.h(1787): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
@@ -86,9 +84,8 @@ e:\cudadep\include\math_functions.h(7142): warning C4819: 该文件包含不能�
 e:\cudadep\include\math_functions.h(7956): warning C4819: 该文件包含不能在当前代码页(936)中表示的字符。请将该文件保存为 Unicode 格式以防止数据丢失
 CUDACOMPILE : nvcc warning : The 'compute_20', 'sm_20', and 'sm_21' architectures are deprecated, and may be removed in a future release (Use -Wno-deprecated-gpu-targets to suppress warning).
   kernel.cu
-e:\user\documents\visual studio 2012\projects\gene_cuda\gene_cuda\kernel.cu(336): warning C4715: “geneWithCuda”: 不是所有的控件路径都返回值
-  GENE_CUDA.vcxproj -> e:\User\Documents\Visual Studio 2012\Projects\GENE_CUDA\Debug\GENE_CUDA.exe
-  copy "E:\CUDAdep\bin\cudart*.dll" "e:\User\Documents\Visual Studio 2012\Projects\GENE_CUDA\Debug\"
+  GENE_CUDA.vcxproj -> e:\user\documents\visual studio 2012\Projects\GENE_CUDA\Debug\GENE_CUDA.exe
+  copy "E:\CUDAdep\bin\cudart*.dll" "e:\user\documents\visual studio 2012\Projects\GENE_CUDA\Debug\"
   E:\CUDAdep\bin\cudart32_80.dll
   E:\CUDAdep\bin\cudart64_80.dll
   已复制         2 个文件。
