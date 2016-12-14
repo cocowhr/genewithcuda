@@ -1,5 +1,8 @@
-#include "cuda_runtime.h"
-#include "device_launch_parameters.h"
+#include <WinSock2.h>  
+#include "mysql.h"  
+#pragma comment(lib,"wsock32.lib")  
+#pragma comment(lib,"libmysql.lib")  
+#include <atlstr.h>
 #include <curand.h>
 #include <curand_kernel.h>
 #include <stdio.h>
@@ -10,14 +13,14 @@
 #include <vector>
 using namespace std;
 #define NS 10
-#define ST 5//TÖĞµÄĞòÁĞ¸öÊı TÎª²Î¿¼Ä£Ê½¿â
+#define ST 7//TÖĞµÄĞòÁĞ¸öÊı TÎª²Î¿¼Ä£Ê½¿â
 #define CNUM 4//ÈºÌå¹æÄ£ ĞèÒªÎª2µÄ±¶Êı ÏÖÔÚ·Ö³É4¿é ×î¶à¿ÉÒÔ64
 #define NUM 5//µü´ú´ÎÊı
 #define LEN 5
 #define crossCNUM CNUM*(CNUM-1)
 #define randomSize 500
 #define CHECK(res) if(res!=cudaSuccess){exit(-1);}  
-cudaError_t geneWithCuda(int *crossseq[], int *seq[],int *ref[],double *fit);
+cudaError_t geneWithCuda(int *crossseq[], int *seq[],int *ref[],double *fit,int& count);
 class Chrom
 {
 public:
@@ -53,18 +56,16 @@ typedef struct Code                           // ½á¹¹ÌåÀàĞÍ£¬Îªµ¥¸öÈ¾É«ÌåµÄ½á¹¹£
 	int id;//0ºÅÔ¤Áô¸ø*
 	double count;
 }code;     
-__host__ void evpop (vector<Chrom>&popcurrent,vector<code>&codes,vector<int *>ref)   // º¯Êı£ºËæ»úÉú³É³õÊ¼ÖÖÈº£»
+__host__ void evpop (int **seq,int **ref)   // º¯Êı£ºËæ»úÉú³É³õÊ¼ÖÖÈº£»//todo:ĞèÒªGPU¼ÆËãfit
 {
 	int random ;
 	for(int i=0;i<CNUM;i++)
 	{
-		Chrom chrom;
 		for(int j=0;j<LEN;j++)
 		{
 			random=rand ()%NS;                     // ²úÉúÒ»¸öËæ»úÖµ
-			chrom.seq[j]=codes[random].id;
+			seq[i][j]=random;
 		}
-		popcurrent.push_back(chrom);
 	}
 	for(int i=0;i<CNUM;i++)
 	{
@@ -72,52 +73,9 @@ __host__ void evpop (vector<Chrom>&popcurrent,vector<code>&codes,vector<int *>re
 		for(int j=0;j<random1;j++)
 		{
 			random=rand ()%LEN; 
-			popcurrent[i].seq[random]=0;
+			seq[i][random]=0;
 		}
-	}
-	for(int i=0;i<CNUM;i++)
-	{
-		for(int j=0;j<ST;j++)
-		{
-			bool eq=true;
-			for(int k=0;k<LEN;k++)
-			{
-				int pop=popcurrent[i].seq[k];
-				if(0!=pop&&ref[j][k]!=pop)
-				{
-					eq=false;
-					break;
-				}
-			}
-			if(eq)
-			{
-//				popcurrent[i].MM.push_back(j);
-				popcurrent[i].M++;
-			}
-		}
-	}
-	for(int i=0;i<CNUM;i++)
-	{
-		int E=LEN;
-		double ci=0;
-		for(int j=0;j<LEN;j++)
-		{
-			if(popcurrent[i].seq[j]!=0)
-			{
-				ci+=codes[popcurrent[i].seq[j]-1].count;
-			}
-			else
-			{
-				E--;
-			}
-		}
-		popcurrent[i].fit=ci*popcurrent[i].M*pow(NS,E)/ST;
-		//cout<<"E: "<<E<<endl;
-		//cout<<"Ns^E(Patterni)/S(T): "<<pow(NS,E)/ST<<endl;
-		//cout<<"ci: "<<ci<<endl;
-		//cout<<"M:"<<popcurrent[i].M<<endl;
-		//cout<<"fit:    "<<popcurrent[i].fit<<endl;
-	}             
+	}       
 }       
 __host__ void pickchroms (vector<Chrom>& popcurrent,vector<Chrom>& popnext)          // º¯Êı£ºÑ¡Ôñ¸öÌå£»
 {
@@ -143,7 +101,6 @@ __host__ void pickchroms (vector<Chrom>& popcurrent,vector<Chrom>& popnext)     
 	}
 	popnext.assign(temp.begin(),temp.end()); 
 }   
-
 __device__ int randomnum;
 __device__  void calculate_fit(double ci,int E,int *seq,int **ref,double &fit)//¼ÆËãfitÖµ
 {
@@ -179,11 +136,11 @@ __global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int
 	{	
 		//printf("(%d,%d)\n",y,x); 
 		//printf("(%d,%d)\n(%d)\n(%d)\n",y,x,seq[y][0],seq[x][0]); 
-		int insert_pt=atomicAdd(crosscount, 2);
 		int iscross=atomicAdd(&randomnum, 1);
 		// printf("%d\n",random[insert_pt]);
 		if(random[iscross]<80)
 		{
+			int insert_pt=atomicAdd(crosscount, 2);
 			int crossloc=atomicAdd(&randomnum, 1);
 			for(int i=0;i<random[crossloc]%LEN;i++)
 			{
@@ -196,7 +153,6 @@ __global__ void crossover(int **crossseq,int **seq,int **ref,int* crosscount,int
 				crossseq[insert_pt][i]=seq[x][i];
 				crossseq[insert_pt+1][i]=seq[y][i];
 			}
-			//cross_calculate_fit(ci1,ci2,crossseq[insert_pt],crossseq[insert_pt+1],ref,fit[insert_pt],fit[insert_pt+1]);
 		}
 	}
 
@@ -250,76 +206,47 @@ int main()
 	{
 		ref[i]=new int [LEN];
 	}
-	seq[0][0]=1;
-	seq[0][1]=2;
-	seq[0][2]=0;
-	seq[0][3]=4;
-	seq[0][4]=5;
-	//12045
-	seq[1][0]=4;
-	seq[1][1]=2;
-	seq[1][2]=8;
-	seq[1][3]=0;
-	seq[1][4]=3;
-	//42803
-	seq[2][0]=5;
-	seq[2][1]=2;
-	seq[2][2]=1;
-	seq[2][3]=4;
-	seq[2][4]=7;
-	//52147
-	seq[3][0]=3;
-	seq[3][1]=3;
-	seq[3][2]=2;
-	seq[3][3]=5;
-	seq[3][4]=6;
-	//33256
-
-
-	ref[0][0]=1;
-	ref[0][1]=2;
-	ref[0][2]=3;
-	ref[0][3]=4;
-	ref[0][4]=7;
-	//12347
-	ref[1][0]=1;
-	ref[1][1]=2;
-	ref[1][2]=3;
-	ref[1][3]=4;
-	ref[1][4]=7;
-	//12347
-	ref[2][0]=5;
-	ref[2][1]=2;
-	ref[2][2]=3;
-	ref[2][3]=4;
-	ref[2][4]=5;
-	//52345
-	ref[3][0]=3;
-	ref[3][1]=3;
-	ref[3][2]=2;
-	ref[3][3]=8;
-	ref[3][4]=6;
-	//33286
-	ref[4][0]=1;
-	ref[4][1]=2;
-	ref[4][2]=2;
-	ref[4][3]=5;
-	ref[4][4]=6;
-	//12256
+	MYSQL mysql;  
+	MYSQL_RES *result;  
+	MYSQL_ROW row;  
+	mysql_init(&mysql);  
+	mysql_real_connect(&mysql, "localhost", "root", "root", "genet", 3306, NULL, 0); 
+	CString strSQL;
+	strSQL.Format("SELECT * FROM seq");
+	mysql_query(&mysql, strSQL);
+	result = mysql_store_result(&mysql);  
+	for(int i=0;i<ST;i++)
+	{  
+		row = mysql_fetch_row(result);
+		for(int j=0;j<LEN;j++)
+		{
+			ref[i][j]=atoi(row[j+1]);
+		}
+	}  
+	evpop(seq,ref);
+	for(int i=0;i<CNUM;i++)
+	{
+		for(int j=0;j<LEN;j++)
+		{
+			cout<<seq[i][j]<<" ";
+		}
+		cout<<endl;
+	}
+	cout<<"********************************"<<endl;
 	// Add vectors in parallel.
-	cudaError_t cudaStatus = geneWithCuda(crossseq, seq,ref,fit);
+	int count=0;
+	cudaError_t cudaStatus = geneWithCuda(crossseq, seq,ref,fit,count);
 	if (cudaStatus != cudaSuccess) {
 		fprintf(stderr, "addWithCuda failed!");
 		return 1;
 	}
-	for (int i=0;i<crossCNUM;i++)
+	for (int i=0;i<count;i++)
 	{
 		for(int j=0;j<LEN;j++)
 		{
 			cout<<crossseq[i][j]<<" ";
 		}
 		cout<<endl;
-		cout<<fit[i]<<endl;
 	}
 	// cudaThreadExit must be called before exiting in order for profiling and
 	// tracing tools such as Nsight and Visual Profiler to show complete traces.
@@ -332,7 +259,7 @@ int main()
 	return 0;
 }
 // Helper function for using CUDA to add vectors in parallel.
-cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit)
+cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit,int &count)
 {
 	//srand(time(0));
 	int *random=new int[randomSize];
@@ -394,15 +321,16 @@ cudaError_t geneWithCuda(int *outputseq[], int *seq[],int *ref[],double *fit)
 	CHECK(cudaMemcpy(&crosscount, dev_crosscount, sizeof(int), cudaMemcpyDeviceToHost));
 	mutation<<<1,crosscount>>>(dev_mutaoutput,dev_crossoutput,dev_ref,dev_fit,dev_rand);
 	CHECK(cudaThreadSynchronize());
-	for (int i = 0; i < crossCNUM; i++)
-	{
-		CHECK( cudaMemcpy(outputseq[i], array_dev_crossoutput[i], LEN * sizeof(int), cudaMemcpyDeviceToHost));
-	}
-	
 	//for (int i = 0; i < crossCNUM; i++)
 	//{
-	//	CHECK( cudaMemcpy(outputseq[i], array_dev_mutaoutput[i], LEN * sizeof(int), cudaMemcpyDeviceToHost));
+	//	CHECK( cudaMemcpy(outputseq[i], array_dev_crossoutput[i], LEN * sizeof(int), cudaMemcpyDeviceToHost));
 	//}
+
+	for (int i = 0; i < crossCNUM; i++)
+	{
+		CHECK( cudaMemcpy(outputseq[i], array_dev_mutaoutput[i], LEN * sizeof(int), cudaMemcpyDeviceToHost));
+	}
 	CHECK(cudaMemcpy(fit, dev_fit, crossCNUM*sizeof(double), cudaMemcpyDeviceToHost));
 	CHECK(cudaMemcpy(&crosscount, dev_crosscount, sizeof(int), cudaMemcpyDeviceToHost));
+	count=crosscount;
 }

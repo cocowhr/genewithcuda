@@ -296,8 +296,373 @@ e:\cudadep\include\host_defines.h
 e:\cudadep\include\vector_functions.h
 e:\cudadep\include\device_launch_parameters.h
 e:\cudadep\include\vector_types.h
-E:\CUDAdep\include\cuda_runtime.h
-E:\CUDAdep\include\device_launch_parameters.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\WinSock2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\winapifamily.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\windows.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\sdkddkver.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\excpt.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdarg.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\windef.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\minwindef.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\specstrings.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\specstrings_strict.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\specstrings_undef.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\driverspecs.h
+c:\program files (x86)\windows kits\8.0\include\shared\sdv_driverspecs.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnt.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\ctype.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\kernelspecs.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\basetsd.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\guiddef.h
+c:\program files (x86)\windows kits\8.0\include\shared\pshpack4.h
+c:\program files (x86)\windows kits\8.0\include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\pshpack4.h
+c:\program files (x86)\windows kits\8.0\include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack4.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\pshpack4.h
+c:\program files (x86)\windows kits\8.0\include\shared\pshpack2.h
+c:\program files (x86)\windows kits\8.0\include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\pshpack2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\pshpack8.h
+c:\program files (x86)\windows kits\8.0\include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\ktmtypes.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnt.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winbase.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\minwinbase.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\processenv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\fileapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\debugapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\utilapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\handleapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\errhandlingapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\fibersapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\namedpipeapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\profileapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\heapapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ioapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\synchapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\interlockedapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\processthreadsapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\sysinfoapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\memoryapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\threadpoollegacyapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\threadpoolapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\bemapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\jobapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\wow64apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\libloaderapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\securitybaseapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\namespaceapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\systemtopologyapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\processtopologyapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\securityappcontainer.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\realtimeapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\winerror.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\timezoneapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\wingdi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack4.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack4.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winuser.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\tvout.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnls.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\datetimeapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\stringapiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnls.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\wincon.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\consoleapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winver.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\verrsrc.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winreg.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\reason.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnetwk.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\wnnc.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\cderr.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\dde.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ddeml.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\dlgs.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\lzexpand.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsystem.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mciapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmiscapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmiscapi2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\playsoundapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmeapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\timeapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\joystickapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mmsyscom.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\nb30.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\rpc.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\rpcdce.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\rpcdcep.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\rpcnsi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\rpcnterr.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\rpcasync.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\shellapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winperf.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winsock.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\wincrypt.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\bcrypt.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ncrypt.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\bcrypt.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\dpapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winefs.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winscard.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\wtypes.h
+c:\program files (x86)\windows kits\8.0\include\shared\rpcndr.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\rpcnsip.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\rpcsal.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+c:\program files (x86)\windows kits\8.0\include\shared\wtypesbase.h
+c:\program files (x86)\windows kits\8.0\include\shared\guiddef.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winioctl.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\winsmcrd.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winspool.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\prsht.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack4.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ole2.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\objbase.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\combaseapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apiset.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\apisetcconv.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\unknwnbase.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\objidlbase.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\guiddef.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\cguid.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\objidl.h
+c:\program files (x86)\windows kits\8.0\include\um\unknwn.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\urlmon.h
+c:\program files (x86)\windows kits\8.0\include\um\oleidl.h
+c:\program files (x86)\windows kits\8.0\include\um\servprov.h
+c:\program files (x86)\windows kits\8.0\include\um\msxml.h
+c:\program files (x86)\windows kits\8.0\include\um\oaidl.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\propidl.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\oleauto.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\commdlg.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\prsht.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\stralign.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winsvc.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\mcx.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\imm.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ime_cmodes.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\ws2def.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\inaddr.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\qos.h
+C:\Program Files (x86)\MySQL\MySQL Server 5.7\include\mysql.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\sys/types.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql_version.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql_com.h
+c:\program files (x86)\mysql\mysql server 5.7\include\binary_log_types.h
+c:\program files (x86)\mysql\mysql server 5.7\include\my_command.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql_time.h
+c:\program files (x86)\mysql\mysql server 5.7\include\my_list.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql/client_plugin.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql\plugin_auth_common.h
+c:\program files (x86)\mysql\mysql server 5.7\include\typelib.h
+c:\program files (x86)\mysql\mysql server 5.7\include\my_alloc.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql/psi/psi_memory.h
+c:\program files (x86)\mysql\mysql server 5.7\include\mysql\psi\psi_base.h
+c:\program files (x86)\mysql\mysql server 5.7\include\my_alloc.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlstr.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlbase.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atldef.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlrc.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\errno.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\new.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\malloc.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdbg.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlcore.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\tchar.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\mbstring.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlchecked.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlexcept.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atltrace.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlconv.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlalloc.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\swprintf.inl
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atldebugapi.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\wchar.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlsimpcoll.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlcomcli.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\olectl.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ocidl.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\comcat.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atliface.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\oleacc.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\process.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\shlwapi.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\shtypes.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack1.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\pshpack8.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\shared\poppack.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atltransactionmanager.h
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\ktmw32.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\statreg.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlbase.inl
+C:\Program Files (x86)\Windows Kits\8.0\Include\um\winnls.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\cstringt.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlsimpstr.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlmem.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\atlcommem.h
+E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\atlmfc\include\cstringt.inl
 E:\CUDAdep\include\curand.h
 E:\CUDAdep\include\cuda_runtime.h
 E:\CUDAdep\include\curand_kernel.h
@@ -340,9 +705,6 @@ e:\cudadep\include\curand_mrg32k3a.h
 e:\cudadep\include\curand_mtgp32_kernel.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\math.h
 e:\cudadep\include\curand_philox4x32_x.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\swprintf.inl
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\iostream
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\istream
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\ostream
@@ -360,8 +722,6 @@ E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstddef
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\cstddef
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\eh.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\malloc.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xstring
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xmemory0
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\limits
@@ -372,14 +732,10 @@ E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtwrn.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\cwchar
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\wchar.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\new
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xutility
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\utility
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\iosfwd
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdbg.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\type_traits
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xrefwrap
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xatomic0.h
@@ -404,8 +760,6 @@ E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\mmintrin.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\typeinfo
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xlocinfo
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xlocinfo.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\ctype.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\locale.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xdebug
@@ -413,8 +767,6 @@ E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xmemory
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\xfacet
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\system_error
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\cerrno
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\errno.h
-E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\crtdefs.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\share.h
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\algorithm
 E:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\vector
